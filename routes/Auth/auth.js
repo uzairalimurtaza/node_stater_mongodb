@@ -1,15 +1,11 @@
 const express = require('express')
-const connection = require('../../config/db');
+const { getUsers, createUsers, updateUsers, deleteUsers } = require('../../controllers/Auth/auth');
 
 const router = express.Router();
 
-router.get('/users', async (req, res) => {
-    
-    const user = connection.query('SELECT * from users');
-    res.send({
-        user: user
-    })
-
-})
+router.route('/users').get(getUsers)
+router.route('/users').post(createUsers)
+router.route('/users/:id').put(updateUsers)
+router.route('/users/:id').delete(deleteUsers)
 
 module.exports = router

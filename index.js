@@ -7,20 +7,14 @@ const util = require('util');
 app.use(bodyParser.json());
 const query = require("./config/db");
 
+
+// Route imports
+const auth_Router = require('./routes/Auth/auth');
+// call to routes
+app.use('/api', auth_Router)
+
+
 dotenv.config({ path: "./config/config.env" });
-
-
-app.get('/users', async (req, res, next) => {
-
-    try {
-        const users = await query('select *  from users');
-        // console.log(users[0].name);
-        res.send(users);
-    } catch (err) {
-        next(err)
-        res.send({ message: 'error'})
-    }
-});
 
 
 const port = process.env.PORT || 3000;
